@@ -215,12 +215,12 @@
 
                 {%- capture model_content -%}
                   {%- if wearing_size != blank and model_info != blank -%}
-                    <p>{{ model_info.name.value }} is {{ model_info.height.value }} and wearing size {{ wearing_size | capitalize }}</p>
-                    <p>{{ model_info.name.value }}'s measurements:</p>
+                    <p>{{ 'products.product.model_info.intro' | t: name: model_info.name.value, height: model_info.height.value, size: wearing_size | capitalize }}</p>
+                    <p>{{ 'products.product.model_info.measurements_title' | t: name: model_info.name.value }}</p>
                     <ul>
-                      <li>Bust: {{ model_info.bust.value }}</li>
-                      <li>Waist: {{ model_info.waist.value }}</li>
-                      <li>Hips: {{ model_info.hips.value }}</li>
+                      <li>{{ 'products.product.model_info.bust' | t: bust: model_info.bust.value }}</li>
+                      <li>{{'products.product.model_info.waist' | t: waist: model_info.waist.value }}</li>
+                      <li>{{'products.product.model_info.hips' | t: hips: model_info.hips.value }}</li>
                     </ul>
                     {%- endif -%}
                 {%- endcapture -%}

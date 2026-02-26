@@ -188,7 +188,14 @@
       "taxes_included": "Taxes included.",
       "duties_included": "Duties included.",
       "duties_and_taxes_included": "Duties and taxes included.",
-      "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout."
+      "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout.",
+      "model_info": {
+        "intro": "{{ name }} is {{ height }} and wearing size {{ size }}",
+        "measurements_title": "{{ name }}'s measurements:",
+        "bust": "Bust: {{ bust }}",
+        "waist": "Waist: {{ waist }}",
+        "hips": "Hips: {{ hips }}"
+      }
     },
     "modal": {
       "label": "Media gallery"
