@@ -49,6 +49,10 @@
           "type": "description",
           "settings": {}
         },
+        "model_info": {
+          "type": "model_info",
+          "settings": {}
+        },
         "share": {
           "type": "share",
           "settings": {
@@ -64,6 +68,7 @@
         "quantity_selector",
         "buy_buttons",
         "description",
+        "model_info",
         "share"
       ],
       "settings": {
@@ -101,8 +106,5 @@
       }
     }
   },
-  "order": [
-    "main",
-    "related-products"
-  ]
+  "order": ["main", "related-products"]
 }
