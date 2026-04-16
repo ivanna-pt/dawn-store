@@ -1,0 +1,49 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product-custom",
+      "blocks": {
+        "eyebrow": {
+          "type": "text",
+          "settings": {
+            "text": "Premium brand store",
+            "text_style": "uppercase"
+          }
+        },
+        "title": { "type": "title", "settings": {} },
+        "price": { "type": "price", "settings": {} },
+        "description": { "type": "description", "settings": {} },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "square"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": { "show_dynamic_checkout": true }
+        },
+        "shipping_info": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping & returns",
+            "icon": "truck",
+            "content": "<p>Free standard shipping on orders over $50. Estimated delivery 3–5 business days. Returns accepted within 30 days of purchase.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "eyebrow",
+        "title",
+        "price",
+        "description",
+        "variant_picker",
+        "buy_buttons",
+        "shipping_info"
+      ],
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
