@@ -1,7 +1,10 @@
-{{ 'component-featured-product-slider.css' | asset_url | stylesheet_tag }}
-{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
-
 {%- assign products = section.settings.product_list -%}
+{%- assign slides_desktop = section.settings.slides_desktop | plus: 0 -%}
+
+{{ 'component-featured-product-slider.css' | asset_url | stylesheet_tag }}
+{%- if section.settings.enable_slider and products.count > slides_desktop -%}
+  {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
 
 {%- style -%}
   #shopify-section-{{ section.id }} {
@@ -27,8 +30,7 @@
       {%- endif -%}
     </div>
 
-    {%- if products.count > 0 -%}
-      {%- assign slides_desktop = section.settings.slides_desktop | plus: 0 -%}
+    {%- if products.count > 0 -%}      
       {%- if section.settings.enable_slider and products.count > slides_desktop -%}
 
         <featured-product-slider>
