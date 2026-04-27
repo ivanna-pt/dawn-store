@@ -9,6 +9,7 @@
     --pb-mobile: {{ section.settings.pb_mobile }}px;
     --pt-desktop: {{ section.settings.pt_desktop }}px;
     --pb-desktop: {{ section.settings.pb_desktop }}px;
+    --slides-desktop: {{ section.settings.slides_desktop }};
   }
 {%- endstyle -%}
 
@@ -27,7 +28,8 @@
     </div>
 
     {%- if products.count > 0 -%}
-      {%- if section.settings.enable_slider -%}
+      {%- assign slides_desktop = section.settings.slides_desktop | plus: 0 -%}
+      {%- if section.settings.enable_slider and products.count > slides_desktop -%}
 
         <featured-product-slider>
           <script type="application/json">
@@ -97,7 +99,7 @@
   </div>
 </div>
 
-{%- if section.settings.enable_slider -%}
+{%- if section.settings.enable_slider and products.count > slides_desktop -%}
   <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
   <script src="{{ 'component-featured-product-slider.js' | asset_url }}" defer></script>
 {%- endif -%}

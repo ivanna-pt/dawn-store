@@ -52,7 +52,7 @@ featured-product-slider {
 
 @media screen and (min-width: 990px) {
   .featured-product-slider__grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(var(--slides-desktop, 4), 1fr);
   }
 }
 
