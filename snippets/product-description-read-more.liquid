@@ -1,0 +1,37 @@
+{% comment %}
+  Renders a collapsible read-more description block.
+  Accepts:
+    - content {String} - HTML content to display (required). Pass product.description or custom richtext.
+{% endcomment %}
+
+{%- if content == blank -%}
+  {%- break -%}
+{%- endif -%}
+
+<read-more-description class="product__description-read-more">
+  <div class="product__description-viewport" data-viewport>
+    <div class="rte product__description--clamped" data-content>
+      {{- content -}}
+    </div>
+    <div class="product__description-more-wrap" data-more-wrap>
+      <span class="product__description-ellipsis" aria-hidden="true">…</span>
+      <button
+        type="button"
+        class="product__toggle-desc-btn link"
+        data-toggle="more"
+        aria-expanded="false"
+      >
+        {{- 'products.product.description_show_more' | t -}}
+      </button>
+    </div>
+  </div>
+  <button
+    type="button"
+    class="product__toggle-desc-btn product__toggle-desc-btn--less link"
+    data-toggle="less"
+    aria-expanded="false"
+    hidden
+  >
+    {{- 'products.product.description_show_less' | t -}}
+  </button>
+</read-more-description>

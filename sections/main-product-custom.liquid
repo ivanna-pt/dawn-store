@@ -1,3 +1,12 @@
+{%- assign read_more_block = section.blocks | where: 'type', 'read_more_description' | first -%}
+{%- if read_more_block -%}
+  {%- style -%}
+    #shopify-section-{{ section.id }} .product__description--clamped {
+      --desc-lines: {{ read_more_block.settings.lines_to_show }};
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
 <product-info
   id="MainProduct-{{ section.id }}"
   class="product-custom-section section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
@@ -224,6 +233,18 @@
                     {{ product.description }}
                   </div>
                 {%- endif -%}
+              {%- when 'read_more_description' -%}
+                {%- liquid
+                  if block.settings.content_source == 'product_description'
+                    assign read_more_content = product.description
+                  else
+                    assign read_more_content = block.settings.custom_content
+                  endif
+                -%}
+                <div class="quick-add-hidden" {{ block.shopify_attributes }}>
+                  {%- render 'product-description-read-more', content: read_more_content -%}
+                </div>
+                <script src="{{ 'read-more-description.js' | asset_url }}" defer="defer"></script>
               {%- when 'sku' -%}
                 <p
                   class="product__sku{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.sku.size == 0 %} visibility-hidden{% endif %}"
@@ -959,6 +980,44 @@
       "type": "description",
       "name": "t:sections.main-product.blocks.description.name",
       "limit": 1
+    },
+    {
+      "type": "read_more_description",
+      "name": "Read more",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "content_source",
+          "label": "Content source",
+          "options": [
+            {
+              "value": "product_description",
+              "label": "Product description"
+            },
+            {
+              "value": "custom",
+              "label": "Custom text"
+            }
+          ],
+          "default": "product_description"
+        },
+        {
+          "type": "richtext",
+          "id": "custom_content",
+          "label": "Custom content",
+          "info": "Used when \"Custom text\" is selected as the content source."
+        },
+        {
+          "type": "range",
+          "id": "lines_to_show",
+          "label": "Lines to show",
+          "min": 2,
+          "max": 8,
+          "step": 1,
+          "default": 4
+        }
+      ]
     },
     {
       "type": "share",
