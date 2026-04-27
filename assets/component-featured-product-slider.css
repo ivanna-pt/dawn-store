@@ -1,4 +1,8 @@
-/* Featured Product Slider — section layout */
+featured-product-slider {
+  display: block;
+  position: relative;
+}
+
 .featured-product-slider__inner {
   padding-top: var(--pt-mobile);
   padding-bottom: var(--pb-mobile);
@@ -16,6 +20,7 @@
   align-items: flex-end;
   justify-content: space-between;
   margin-bottom: 2rem;
+  padding-inline: 6rem;
 }
 
 .featured-product-slider__heading {
@@ -25,7 +30,7 @@
 .featured-product-slider__view-all {
   color: rgb(var(--color-foreground));
   text-decoration: underline;
-  font-size: 1rem;
+  font-size: 1.2rem;
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -51,7 +56,75 @@
   }
 }
 
-/* Product card */
+.fps__track {
+  position: relative;
+  padding-inline: 60px;
+}
+
+.fps__track .swiper-wrapper {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.fps__nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  padding: 1rem;
+  background-color: rgba(var(--color-foreground), 0.05);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: rgb(var(--color-foreground));
+  transition: background-color 0.2s ease;
+  line-height: 0;
+}
+
+.fps__nav-btn--prev {
+  left: 0;
+}
+
+.fps__nav-btn--next {
+  right: 0;
+}
+
+.fps__nav-btn:hover {
+  background: rgba(var(--color-foreground), 0.15);
+}
+
+.fps__nav-btn--disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.fps__pagination.swiper-pagination {
+  position: static;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.fps__dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(var(--color-foreground), 0.2);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.fps__dot--active {
+  background: rgb(var(--color-foreground));
+}
+
 .product-card {
   display: flex;
   flex-direction: column;

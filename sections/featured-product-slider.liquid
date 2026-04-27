@@ -1,4 +1,5 @@
 {{ 'component-featured-product-slider.css' | asset_url | stylesheet_tag }}
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
 
 {%- assign products = section.settings.product_list -%}
 
@@ -26,27 +27,80 @@
     </div>
 
     {%- if products.count > 0 -%}
-      <ul class="featured-product-slider__grid" role="list">
-        {%- for product in products -%}
-          {% liquid
-            assign lazy_load = true
-            if forloop.first
-              assign lazy_load = false
-            endif
-          %}
-          <li>
-            {%- render 'product-card',
-              product: product,
-              lazy_load: lazy_load,
-              section_id: section.id
+      {%- if section.settings.enable_slider -%}
+
+        <featured-product-slider>
+          <script type="application/json">
+            {
+              "slidesMobile": {{ section.settings.slides_mobile }},
+              "slidesDesktop": {{ section.settings.slides_desktop }},
+              "arrows": {{ section.settings.show_arrows }},
+              "dots": {{ section.settings.show_dots }},
+              "autoplay": {{ section.settings.autoplay }}
+            }
+          </script>
+          <div class="fps__track">
+            <div class="swiper fps__swiper">
+              <ul class="swiper-wrapper" role="list">
+                {%- for product in products -%}
+                  <li class="swiper-slide">
+                    {%- render 'product-card',
+                      product: product,
+                      lazy_load: forloop.index > 2,
+                      section_id: section.id
+                    -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+            {%- if section.settings.show_arrows -%}
+              <button type="button" class="fps__nav-btn fps__nav-btn--prev" aria-label="Previous slide">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                  <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <button type="button" class="fps__nav-btn fps__nav-btn--next" aria-label="Next slide">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                  <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            {%- endif -%}
+          </div>
+          {%- if section.settings.show_dots -%}
+            <div class="fps__pagination swiper-pagination"></div>
+          {%- endif -%}
+        </featured-product-slider>
+
+      {%- else -%}
+
+        <ul class="featured-product-slider__grid" role="list">
+          {%- for product in products -%}
+            {%- liquid
+              assign lazy_load = true
+              if forloop.first
+                assign lazy_load = false
+              endif
             -%}
-          </li>
-        {%- endfor -%}
-      </ul>
+            <li>
+              {%- render 'product-card',
+                product: product,
+                lazy_load: lazy_load,
+                section_id: section.id
+              -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+
+      {%- endif -%}
     {%- endif -%}
 
   </div>
 </div>
+
+{%- if section.settings.enable_slider -%}
+  <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
+  <script src="{{ 'component-featured-product-slider.js' | asset_url }}" defer></script>
+{%- endif -%}
 
 {% schema %}
 {
@@ -74,6 +128,56 @@
       "id": "color_scheme",
       "label": "Color scheme",
       "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Slider"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_slider",
+      "label": "Enable slider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show dots",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "slides_mobile",
+      "label": "Products per view (mobile)",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "select",
+      "id": "slides_desktop",
+      "label": "Products per view (desktop)",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" },
+        { "value": "5", "label": "5" }
+      ],
+      "default": "4"
     },
     {
       "type": "header",
