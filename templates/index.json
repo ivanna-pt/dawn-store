@@ -54,9 +54,16 @@
           "black-leather-bag",
           "classic-leather-jacket",
           "classic-varsity-top",
-          "navy-sport-jacket"
+          "dark-denim-top",
+          "floral-white-top"
         ],
         "color_scheme": "scheme-1",
+        "enable_slider": true,
+        "show_arrows": true,
+        "show_dots": true,
+        "autoplay": false,
+        "slides_mobile": "1",
+        "slides_desktop": "4",
         "show_view_all": true,
         "view_all_label": "View All",
         "pt_mobile": 24,
