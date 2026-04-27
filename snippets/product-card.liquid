@@ -1,0 +1,52 @@
+{% comment %}
+  Renders a product card.
+
+  Accepts:
+    - product    {Object}  - The product object (required)
+    - lazy_load  {Boolean} - Lazy-load the image; pass false for above-the-fold cards (default: true)
+    - section_id {String}  - ID of the parent section (optional)
+{% endcomment %}
+
+{%- liquid
+  assign loading = 'lazy'
+  if lazy_load == false
+    assign loading = 'eager'
+  endif
+
+  assign on_sale = false
+  if product.compare_at_price > product.price
+    assign on_sale = true
+  endif
+-%}
+
+<a href="{{ product.url }}" class="product-card">
+  <div class="product-card__image-wrapper">
+    {%- if product.featured_image -%}
+      {{-
+        product.featured_image
+        | image_url: width: 600
+        | image_tag:
+          class: 'product-card__image',
+          loading: loading,
+          alt: product.featured_image.alt,
+          widths: '300, 400, 600',
+          sizes: '(min-width: 990px) 25vw, (min-width: 750px) 33vw, 50vw'
+      -}}
+    {%- else -%}
+      {{ 'product-apparel-2' | placeholder_svg_tag: 'product-card__image' }}
+    {%- endif -%}
+    {%- if on_sale -%}
+      <span class="product-card__sale-badge">{{ 'products.product.on_sale' | t }}</span>
+    {%- endif -%}
+  </div>
+
+  <div class="product-card__info">
+    <h3 class="product-card__title">{{ product.title | escape }}</h3>
+    <div class="product-card__price">
+      {%- if on_sale -%}
+        <span class="product-card__compare-price">{{ product.compare_at_price | money }}</span>
+      {%- endif -%}
+      <span>{{ product.price | money }}</span>
+    </div>
+  </div>
+</a>

@@ -1,0 +1,145 @@
+{{ 'component-featured-product-slider.css' | asset_url | stylesheet_tag }}
+
+{%- assign products = section.settings.product_list -%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --pt-mobile: {{ section.settings.pt_mobile }}px;
+    --pb-mobile: {{ section.settings.pb_mobile }}px;
+    --pt-desktop: {{ section.settings.pt_desktop }}px;
+    --pb-desktop: {{ section.settings.pb_desktop }}px;
+  }
+{%- endstyle -%}
+
+<div class="featured-product-slider color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width featured-product-slider__inner">
+
+    <div class="featured-product-slider__header">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="featured-product-slider__heading h2">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.show_view_all -%}
+        <a href="{{ routes.all_products_collection_url }}" class="featured-product-slider__view-all">
+          {{ section.settings.view_all_label | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- if products.count > 0 -%}
+      <ul class="featured-product-slider__grid" role="list">
+        {%- for product in products -%}
+          {% liquid
+            assign lazy_load = true
+            if forloop.first
+              assign lazy_load = false
+            endif
+          %}
+          <li>
+            {%- render 'product-card',
+              product: product,
+              lazy_load: lazy_load,
+              section_id: section.id
+            -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Featured products",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Featured Products"
+    },
+    {
+      "type": "product_list",
+      "id": "product_list",
+      "label": "Products",
+      "limit": 12
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "View all button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show \"View All\" button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "Button label",
+      "default": "View All"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "pt_mobile",
+      "label": "Padding top (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "pb_mobile",
+      "label": "Padding bottom (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "pt_desktop",
+      "label": "Padding top (desktop)",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "pb_desktop",
+      "label": "Padding bottom (desktop)",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured product slider"
+    }
+  ]
+}
+{% endschema %}

@@ -31,40 +31,57 @@
           }
         }
       },
-      "block_order": [
-        "heading",
-        "button"
-      ],
+      "block_order": ["heading", "button"],
       "settings": {
         "image_overlay_opacity": 40,
         "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
         "image_behavior": "none",
+        "desktop_content_position": "bottom-center",
         "desktop_content_alignment": "center",
+        "show_text_box": false,
         "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
         "stack_images_on_mobile": false,
+        "mobile_content_alignment": "center",
         "show_text_below": false
+      }
+    },
+    "featured_product_slider_QPmA3L": {
+      "type": "featured-product-slider",
+      "name": "Featured product slider",
+      "settings": {
+        "heading": "Featured Products",
+        "product_list": [
+          "black-leather-bag",
+          "classic-leather-jacket",
+          "classic-varsity-top",
+          "navy-sport-jacket"
+        ],
+        "color_scheme": "scheme-1",
+        "show_view_all": true,
+        "view_all_label": "View All",
+        "pt_mobile": 24,
+        "pb_mobile": 24,
+        "pt_desktop": 48,
+        "pb_desktop": 48
       }
     },
     "featured_collection": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
+        "collection": "all",
+        "products_to_show": 8,
         "title": "Featured products",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
         "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
         "columns_desktop": 4,
-        "color_scheme": "scheme-1",
+        "enable_desktop_slider": false,
         "full_width": false,
         "show_view_all": true,
         "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
+        "color_scheme": "scheme-1",
         "image_ratio": "adapt",
         "image_shape": "default",
         "show_secondary_image": true,
@@ -72,6 +89,7 @@
         "show_rating": false,
         "quick_add": "none",
         "columns_mobile": "2",
+        "swipe_on_mobile": false,
         "padding_top": 44,
         "padding_bottom": 36
       }
@@ -79,6 +97,7 @@
   },
   "order": [
     "image_banner",
+    "featured_product_slider_QPmA3L",
     "featured_collection"
   ]
 }

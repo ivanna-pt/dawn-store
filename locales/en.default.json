@@ -332,6 +332,13 @@
       "onboarding_title": "Blog post",
       "onboarding_content": "Give your customers a summary of your blog post"
     },
+    "featured_product_slider": {
+      "heading": "Featured Products",
+      "view_all": "View All",
+      "presets": {
+        "name": "Featured products"
+      }
+    },
     "featured_collection": {
       "view_all": "View all",
       "view_all_label": "View all products in the {{ collection_name }} collection"
