@@ -19,6 +19,8 @@ featured-product-slider {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
+  flex-wrap: wrap;
+  column-gap: 2rem;
   margin-bottom: 2rem;
   padding-inline: 6rem;
 }

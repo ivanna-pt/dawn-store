@@ -1,12 +1,14 @@
 class FeaturedProductSlider extends HTMLElement {
   connectedCallback() {
-    const config = JSON.parse(this.querySelector('script[type="application/json"]').textContent);
+    const configEl = this.querySelector('script[type="application/json"]');
+    if (!configEl) return;
+    const config = JSON.parse(configEl.textContent);
 
     const slidesMobile = parseInt(config.slidesMobile) || 1;
     const slidesDesktop = parseInt(config.slidesDesktop) || 4;
     const slidesTablet = Math.ceil(slidesDesktop / 2);
 
-    new Swiper(this.querySelector('.fps__swiper'), {
+    this.swiper = new Swiper(this.querySelector('.fps__swiper'), {
       slidesPerView: slidesMobile,
       spaceBetween: 16,
       grabCursor: true,
@@ -27,6 +29,10 @@ class FeaturedProductSlider extends HTMLElement {
         990: { slidesPerView: slidesDesktop, spaceBetween: 24 },
       },
     });
+  }
+  disconnectedCallback() {
+    this.swiper?.destroy(true, true);
+    this.swiper = null;
   }
 }
 

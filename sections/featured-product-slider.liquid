@@ -18,17 +18,18 @@
 
 <div class="featured-product-slider color-{{ section.settings.color_scheme }} gradient">
   <div class="page-width featured-product-slider__inner">
-
-    <div class="featured-product-slider__header">
-      {%- if section.settings.heading != blank -%}
-        <h2 class="featured-product-slider__heading h2">{{ section.settings.heading }}</h2>
-      {%- endif -%}
-      {%- if section.settings.show_view_all -%}
-        <a href="{{ routes.all_products_collection_url }}" class="featured-product-slider__view-all">
-          {{ section.settings.view_all_label | escape }}
-        </a>
-      {%- endif -%}
-    </div>
+    {%- if section.settings.heading != blank or section.settings.show_view_all != blank -%}
+      <div class="featured-product-slider__header">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="featured-product-slider__heading h2">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.show_view_all -%}
+          <a href="{{ routes.all_products_collection_url }}" class="featured-product-slider__view-all">
+            {{ section.settings.view_all_label | escape }}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
 
     {%- if products.count > 0 -%}      
       {%- if section.settings.enable_slider and products.count > slides_desktop -%}
@@ -59,14 +60,10 @@
             </div>
             {%- if section.settings.show_arrows -%}
               <button type="button" class="fps__nav-btn fps__nav-btn--prev" aria-label="Previous slide">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                  <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+                {{  'chevron-left.svg'| inline_asset_content }}
               </button>
               <button type="button" class="fps__nav-btn fps__nav-btn--next" aria-label="Next slide">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                  <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+                {{ 'chevron-right.svg'| inline_asset_content }}
               </button>
             {%- endif -%}
           </div>
@@ -78,18 +75,17 @@
       {%- else -%}
 
         <ul class="featured-product-slider__grid" role="list">
-          {%- for product in products -%}
-            {%- liquid
+          {%- liquid
               assign lazy_load = true
-              if forloop.first
+              if section.index == 1
                 assign lazy_load = false
               endif
-            -%}
+          -%}
+          {%- for product in products -%}            
             <li>
               {%- render 'product-card',
                 product: product,
-                lazy_load: lazy_load,
-                section_id: section.id
+                lazy_load: lazy_load
               -%}
             </li>
           {%- endfor -%}
