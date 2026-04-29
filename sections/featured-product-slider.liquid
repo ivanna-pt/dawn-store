@@ -1,0 +1,249 @@
+{%- assign products = section.settings.product_list -%}
+{%- assign slides_desktop = section.settings.slides_desktop | plus: 0 -%}
+
+{{ 'component-featured-product-slider.css' | asset_url | stylesheet_tag }}
+{%- if section.settings.enable_slider and products.count > slides_desktop -%}
+  {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --pt-mobile: {{ section.settings.pt_mobile }}px;
+    --pb-mobile: {{ section.settings.pb_mobile }}px;
+    --pt-desktop: {{ section.settings.pt_desktop }}px;
+    --pb-desktop: {{ section.settings.pb_desktop }}px;
+    --slides-desktop: {{ section.settings.slides_desktop }};
+  }
+{%- endstyle -%}
+
+<div class="featured-product-slider color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width featured-product-slider__inner">
+    {%- if section.settings.heading != blank or section.settings.show_view_all != blank -%}
+      <div class="featured-product-slider__header">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="featured-product-slider__heading h2">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.show_view_all -%}
+          <a href="{{ routes.all_products_collection_url }}" class="featured-product-slider__view-all">
+            {{ section.settings.view_all_label | escape }}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if products.count > 0 -%}      
+      {%- if section.settings.enable_slider and products.count > slides_desktop -%}
+
+        <featured-product-slider>
+          <script type="application/json">
+            {
+              "slidesMobile": {{ section.settings.slides_mobile }},
+              "slidesDesktop": {{ section.settings.slides_desktop }},
+              "arrows": {{ section.settings.show_arrows }},
+              "dots": {{ section.settings.show_dots }},
+              "autoplay": {{ section.settings.autoplay }}
+            }
+          </script>
+          <div class="fps__track">
+            <div class="swiper fps__swiper">
+              <ul class="swiper-wrapper" role="list">
+                {%- for product in products -%}
+                  <li class="swiper-slide">
+                    {%- render 'product-card',
+                      product: product,
+                      lazy_load: forloop.index > 2,
+                      section_id: section.id
+                    -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+            {%- if section.settings.show_arrows -%}
+              <button type="button" class="fps__nav-btn fps__nav-btn--prev" aria-label="Previous slide">
+                {{  'chevron-left.svg'| inline_asset_content }}
+              </button>
+              <button type="button" class="fps__nav-btn fps__nav-btn--next" aria-label="Next slide">
+                {{ 'chevron-right.svg'| inline_asset_content }}
+              </button>
+            {%- endif -%}
+          </div>
+          {%- if section.settings.show_dots -%}
+            <div class="fps__pagination swiper-pagination"></div>
+          {%- endif -%}
+        </featured-product-slider>
+
+      {%- else -%}
+
+        <ul class="featured-product-slider__grid" role="list">
+          {%- liquid
+              assign lazy_load = true
+              if section.index == 1
+                assign lazy_load = false
+              endif
+          -%}
+          {%- for product in products -%}            
+            <li>
+              {%- render 'product-card',
+                product: product,
+                lazy_load: lazy_load
+              -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+
+      {%- endif -%}
+    {%- endif -%}
+
+  </div>
+</div>
+
+{%- if section.settings.enable_slider and products.count > slides_desktop -%}
+  <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
+  <script src="{{ 'component-featured-product-slider.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Featured products",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Featured Products"
+    },
+    {
+      "type": "product_list",
+      "id": "product_list",
+      "label": "Products",
+      "limit": 12
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Slider"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_slider",
+      "label": "Enable slider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show dots",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "slides_mobile",
+      "label": "Products per view (mobile)",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "select",
+      "id": "slides_desktop",
+      "label": "Products per view (desktop)",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" },
+        { "value": "5", "label": "5" }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "header",
+      "content": "View all button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show \"View All\" button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "Button label",
+      "default": "View All"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "pt_mobile",
+      "label": "Padding top (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "pb_mobile",
+      "label": "Padding bottom (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "pt_desktop",
+      "label": "Padding top (desktop)",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "pb_desktop",
+      "label": "Padding bottom (desktop)",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured product slider"
+    }
+  ]
+}
+{% endschema %}
