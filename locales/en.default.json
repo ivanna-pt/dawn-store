@@ -389,6 +389,12 @@
       "min_error": "This item has a minimum of {{ min }}",
       "max_error": "This item has a maximum of {{ max }}",
       "step_error": "You can only add this item in increments of {{ step }}"
+    },
+    "product_custom": {
+      "gallery_actions": {
+        "share": "Share this product",
+        "wishlist": "Add to wishlist"
+      }
     }
   },
   "localization": {
@@ -541,12 +547,6 @@
       "max_characters": "{{ max_chars }} characters max",
       "send_on": "YYYY-MM-DD",
       "send_on_label": "Send on (optional)"
-    },
-    "product-custom": {
-      "gallery_actions": {
-        "share": "Share this product",
-        "wishlist": "Add to wishlist"
-      }
     }
   }
 }
