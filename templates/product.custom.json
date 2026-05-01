@@ -19,12 +19,6 @@
             "text_style": "uppercase"
           }
         },
-        "custom_liquid_XnhWFe": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "<p> Color {{product.metafields.shopify.color-pattern.value.color}} </p>"
-          }
-        },
         "title": {
           "type": "title",
           "settings": {}
@@ -72,7 +66,6 @@
       },
       "block_order": [
         "eyebrow",
-        "custom_liquid_XnhWFe",
         "title",
         "price",
         "description",
