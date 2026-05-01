@@ -12,6 +12,12 @@
     "main": {
       "type": "main-product-custom",
       "blocks": {
+        "custom_liquid_XnhWFe": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{{product.metafields.shopify.color.value}}"
+          }
+        },
         "eyebrow": {
           "type": "text",
           "settings": {
@@ -65,6 +71,7 @@
         }
       },
       "block_order": [
+        "custom_liquid_XnhWFe",
         "eyebrow",
         "title",
         "price",
