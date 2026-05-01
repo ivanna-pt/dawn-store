@@ -25,6 +25,9 @@
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
   {{ 'component-product-custom.css' | asset_url | stylesheet_tag }}
+  {%- if section.settings.show_breadcrumbs -%}
+    {{ 'component-breadcrumbs.css' | asset_url | stylesheet_tag }}
+  {%- endif -%}
 
   {% unless product.has_only_default_variant %}
     {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
@@ -46,6 +49,10 @@
         padding-top: {{ section.settings.padding_top }}px;
         padding-bottom: {{ section.settings.padding_bottom }}px;
       }
+    }
+
+    #shopify-section-{{ section.id }} {
+      --color-breadcrumb-inactive: #8f8f8f;
     }
   {%- endstyle -%}
 
@@ -84,6 +91,9 @@
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
   <div class="page-width">
+    {%- if section.settings.show_breadcrumbs -%}
+      {%- render 'breadcrumbs', product: product, collection: collection -%}
+    {%- endif -%}
     <div class="product-custom product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
       <div class="grid__item product__media-wrapper">
         <div class="product-custom__media-inner">
@@ -2180,6 +2190,16 @@
       "id": "enable_sticky_info",
       "default": false,
       "label": "t:sections.main-product.settings.enable_sticky_info.label"
+    },
+    {
+      "type": "header",
+      "content": "Breadcrumbs"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumbs",
+      "default": true,
+      "label": "Show breadcrumbs"
     },
     {
       "type": "header",

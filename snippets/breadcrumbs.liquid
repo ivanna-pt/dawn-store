@@ -1,0 +1,48 @@
+{% comment %}
+  Renders breadcrumb navigation for the product page.
+  Accepts:
+    - product {Object} - The product object (required)
+    - collection {Object} - The collection context object (optional)
+{% endcomment %}
+
+{%- liquid
+  assign breadcrumb_collection = collection
+
+  if breadcrumb_collection == blank and product.metafields.custom.primary_collection
+    assign breadcrumb_collection = product.metafields.custom.primary_collection.value
+  endif
+
+  if breadcrumb_collection == blank and product.collections.size > 0
+    assign breadcrumb_collection = product.collections.first
+  endif
+-%}
+
+{%- if template contains 'product' and product -%}
+  <nav class="breadcrumbs" aria-label="{{ 'general.breadcrumbs.label' | t }}">
+    <ol class="breadcrumbs__list list-unstyled">
+      <li class="breadcrumbs__item">
+        <a class="breadcrumbs__link" href="{{ routes.root_url }}">{{ 'general.breadcrumbs.home' | t }}</a>
+      </li>
+
+      {%- if breadcrumb_collection -%}
+        <li class="breadcrumbs__item breadcrumbs__separator" aria-hidden="true">
+          <span class="breadcrumbs__icon svg-wrapper">
+            {{- 'icon-arrow-right-sm.svg' | inline_asset_content -}}
+          </span>
+        </li>
+        <li class="breadcrumbs__item">
+          <a class="breadcrumbs__link" href="{{ breadcrumb_collection.url }}">{{ breadcrumb_collection.title }}</a>
+        </li>
+      {%- endif -%}
+
+      <li class="breadcrumbs__item breadcrumbs__separator" aria-hidden="true">
+        <span class="breadcrumbs__icon svg-wrapper">
+          {{- 'icon-arrow-right-sm.svg' | inline_asset_content -}}
+        </span>
+      </li>
+      <li class="breadcrumbs__item breadcrumbs__item--current">
+        <span aria-current="page">{{ product.title }}</span>
+      </li>
+    </ol>
+  </nav>
+{%- endif -%}
