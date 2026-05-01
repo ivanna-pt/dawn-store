@@ -12,17 +12,17 @@
     "main": {
       "type": "main-product-custom",
       "blocks": {
-        "custom_liquid_XnhWFe": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "{{product.metafields.shopify.color.value}}"
-          }
-        },
         "eyebrow": {
           "type": "text",
           "settings": {
             "text": "Premium brand store",
             "text_style": "uppercase"
+          }
+        },
+        "custom_liquid_XnhWFe": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<p> Color {{product.metafields.shopify.color}} </p>"
           }
         },
         "title": {
@@ -71,8 +71,8 @@
         }
       },
       "block_order": [
-        "custom_liquid_XnhWFe",
         "eyebrow",
+        "custom_liquid_XnhWFe",
         "title",
         "price",
         "description",
