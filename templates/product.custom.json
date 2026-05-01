@@ -22,7 +22,7 @@
         "custom_liquid_XnhWFe": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<p> Color {{product.metafields.category.color-pattern.value}} </p>"
+            "custom_liquid": "<p> Color {{product.metafields.shopify.color-pattern.value.color}} </p>"
           }
         },
         "title": {
