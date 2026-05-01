@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -10,9 +19,27 @@
             "text_style": "uppercase"
           }
         },
-        "title": { "type": "title", "settings": {} },
-        "price": { "type": "price", "settings": {} },
-        "description": { "type": "description", "settings": {} },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "disabled": true,
+          "settings": {}
+        },
+        "read_more_description_bhip6H": {
+          "type": "read_more_description",
+          "settings": {
+            "content_source": "product_description",
+            "custom_content": "",
+            "lines_to_show": 2
+          }
+        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
@@ -22,14 +49,18 @@
         },
         "buy_buttons": {
           "type": "buy_buttons",
-          "settings": { "show_dynamic_checkout": true }
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
         },
         "shipping_info": {
           "type": "collapsible_tab",
           "settings": {
             "heading": "Shipping & returns",
             "icon": "truck",
-            "content": "<p>Free standard shipping on orders over $50. Estimated delivery 3–5 business days. Returns accepted within 30 days of purchase.</p>"
+            "content": "<p>Free standard shipping on orders over $50. Estimated delivery 3–5 business days. Returns accepted within 30 days of purchase.</p>",
+            "page": ""
           }
         }
       },
@@ -38,12 +69,33 @@
         "title",
         "price",
         "description",
+        "read_more_description_bhip6H",
         "variant_picker",
         "buy_buttons",
         "shipping_info"
       ],
-      "settings": {}
+      "settings": {
+        "enable_sticky_info": false,
+        "show_breadcrumbs": true,
+        "show_price_badges": false,
+        "show_share_button": true,
+        "show_wishlist_button": true,
+        "color_scheme": "",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
